@@ -10,13 +10,13 @@ const lessonRoutes = require('./routes/lessons');
 const app = express();
 const db = new sqlite3.Database('./database.sqlite');
 
-
+// Middleware
 app.use(bodyParser.json());
 
-
+// Enable CORS for all routes
 app.use(cors());
 
-
+// Initialize database schema
 db.serialize(() => {
   db.run(`
     CREATE TABLE IF NOT EXISTS users (
@@ -83,7 +83,7 @@ db.serialize(() => {
   });
 });
 
-
+// Routes
 app.use('/api/auth', authRoutes(db));
 app.use('/api/users', userRoutes(db));
 app.use('/api/courses', courseRoutes(db));
